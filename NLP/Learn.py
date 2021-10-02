@@ -7,11 +7,13 @@ import pandas as pd
 i=1
 while i>0:
         
-    con = sqlite3.connect(r"C:\Users\John\Personal Files\Entrepreneurship\News Cruncher\04 Web Scraping\headlines.sqlite")
-    with open(r'C:\Users\John\Personal Files\Entrepreneurship\News Cruncher\03 NLP\usr_qry.sql', mode = 'r+') as f:
-        qry = f.read()
+    con = sqlite3.connect("headlines.sqlite")
+    qry = """
+    SELECT DISTINCT * from pulls
+        WHERE LENGTH(article)>300
+        AND news_source != 'reuters'
+    """
     df = pd.read_sql_query(qry, con)
-    con.close()
     articles = df['article'].to_list()
 
     def read_corpus(corp, tokens_only=False):
