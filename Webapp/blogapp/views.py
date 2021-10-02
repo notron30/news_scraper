@@ -1,10 +1,8 @@
-import sys
-sys.path.append(r"C:\Users\John\Personal Files\Entrepreneurship\News Cruncher\03 NLP")
 from django.shortcuts import render
 from .forms import BlogModelForm
 from .models import BlogModel
 from django.http import JsonResponse
-# Create your views here.
+import Capitalize
 
 grabber = {}
 
@@ -24,7 +22,6 @@ def ajaxsave(request):
 	grabber['content'] = str(request.POST['textareacontent'])
 	return JsonResponse({'foop':'foopy'})
 
-import Capitalize
 def quantumize(request):
 	result = Capitalize.correlate(Capitalize.model_loader(), Capitalize.corpus_loader(), grabber['content'])
 	context = {
